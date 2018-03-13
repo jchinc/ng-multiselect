@@ -118,6 +118,7 @@
 
 .ng-multiselect__icon--close{
     cursor: pointer;
+    pointer-events: initial;
 }
 
 .ng-multiselect__search{
