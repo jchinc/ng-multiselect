@@ -1,0 +1,80 @@
+<div #container
+     class="ng-multiselect"
+     [class.ng-multiselect--disabled]="disabled">
+
+    <!-- Botón toggle -->
+    <div class="ng-multiselect__toggle-button"
+         [ngClass]="toggleButtonClasses"
+         (click)="toggleButtonClick()">
+        <span>{{selectedItemsKeys}}</span>
+        <span class="ng-multiselect__toggle-button-caret"></span>
+    </div>
+
+    <!-- Elementos -->
+    <ul #dropdown
+        class="ng-multiselect__dropdown ng-multiselect__dropdown--raised">
+
+        <!-- Elemento: Seleccionar todo -->
+        <li class="ng-multiselect__item ng-multiselect__item--bordered ng-multiselect__item--accent"
+            (click)="selectUnselectAll()">
+            <i *ngIf="itemAll.selected"
+               class="material-icons ng-multiselect__icon">check_box</i>
+            <i *ngIf="!itemAll.selected"
+               class="material-icons ng-multiselect__icon">check_box_outline_blank</i>
+            <div class="ng-multiselect__item-values">
+                {{itemAll.value}}
+            </div>
+        </li>
+
+        <!-- Campo búsqueda -->
+        <form [formGroup]="selectForm">
+            <li class="ng-multiselect__item ng-multiselect__item--bordered ng-multiselect__item--accent">
+                <i class="material-icons ng-multiselect__icon">search</i>
+                <input #input
+                       type="text"
+                       class="ng-multiselect__search"
+                       [placeholder]="inputSearchPlaceHolder"
+                       (keyup)="inputKeyup($event)"
+                       formControlName="term">
+                <i class="material-icons ng-multiselect__icon ng-multiselect__icon--close"
+                   (click)="clearTerm()">close</i>
+            </li>
+        </form>
+
+        <!-- Elementos -->
+        <div #dropdownItems
+             class="ng-multiselect__items">
+
+            <!-- No existen registros -->
+            <li *ngIf="!filteredItems.length"
+                class="ng-multiselect__item ng-multiselect__item--no-rows">
+                {{noRowsText}}
+            </li>
+
+            <!-- Registros filtrados -->
+            <li *ngFor="let item of filteredItems"
+                class="ng-multiselect__item"
+                [class.ng-multiselect__item--selected]="item===hoveredItem"
+                (click)="selectItem(item, $event)">
+                <!-- Elemento seleccionado -->
+                <i *ngIf="item.selected"
+                   class="material-icons ng-multiselect__icon">check_box</i>
+                <!-- Elemento NO seleccionado -->
+                <i *ngIf="!item.selected"
+                   class="material-icons ng-multiselect__icon">check_box_outline_blank</i>
+                <!-- Texto -->
+                <div class="ng-multiselect__item-values">
+                    <span class="ng-multiselect__item-value">
+                        {{item.value}}
+                    </span>
+                    <span *ngIf="item.valueSecondary"
+                          class="ng-multiselect__item-value ng-multiselect__item-value--secondary">
+                        {{item.valueSecondary}}
+                    </span>
+                </div>
+            </li>
+
+        </div>
+
+    </ul>
+</div>

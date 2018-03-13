@@ -1,0 +1,30 @@
+{
+    "name": "@jchinc/ng-multiselect",
+    "version": "0.0.1",
+    "description": "Control de selección múltiple de elementos",
+    "main": "./bundles/ng-multiselect.umd.js",
+    "module": "./esm5/ng-multiselect.js",
+    "es2015": "./esm2015/ng-multiselect.js",
+    "typings": "./ng-multiselect.d.ts",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/jchinc/ng-multiselect.git"
+    },
+    "keywords": [
+        "Angular",
+        "Ng",
+        "HTML Multiselect"
+    ],
+    "author": "José Chin",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/jchinc/ng-multiselect/issues"
+    },
+    "homepage": "https://github.com/jchinc/ng-multiselect#readme",
+    "peerDependencies": {
+        "@angular/core": ">=2.x <=5.x",
+        "@angular/common": ">=2.x <=5.x",
+        "@angular/platform-browser": ">=2.x <=5.x",
+        "@angular/forms": ">=2.x <=5.x"
+    }
+}

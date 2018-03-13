@@ -1,0 +1,143 @@
+.ng-multiselect{
+    color:#59595A;
+    position: relative;
+    font-family: Roboto, "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.ng-multiselect--disabled{
+    pointer-events: none;
+    background-color: rgb(235, 235, 228);
+}
+
+.ng-multiselect__toggle-button{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 30px;
+    padding: 5px;
+    border: 1px solid #CCC;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.ng-multiselect__toggle-button-caret{
+    width: 0;
+    height: 0;
+    border-top: 4px solid;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+}
+
+.ng-multiselect__dropdown {
+    position: absolute;
+    display: none;
+    flex-direction: column;
+    background-color: #FFFFFF;
+    width: 100%;
+    min-width: 240px;
+    max-height: 360px;
+    list-style-type: none;
+    margin-top: 2px;
+    padding: 0;
+    text-align: left;
+    font-weight: 500;
+    border: 1px solid #CCCCCC;
+    animation: slideDown .1s;
+    cursor: default;
+}
+
+.ng-multiselect__dropdown-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.ng-multiselect__dropdown--raised {
+    box-shadow: 0 6px 12px rgba(0,0,0,.175);
+}
+
+.ng-multiselect__items {
+    overflow-y: auto;
+}
+
+.ng-multiselect__item{
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    padding: 0 10px;
+    height: 44px;
+    font-size: 15px;
+    font-weight: 500;
+    overflow: hidden;
+}
+
+.ng-multiselect__item--selected{
+    background-color: #338FFF;
+    font-weight: 700;
+    color: white;
+}
+
+.ng-multiselect__item--bordered{
+    border-bottom: 1px solid #CCCCCC;
+}
+
+.ng-multiselect__item--accent{
+    background-color: rgba(0,0,0,0.04);
+}
+
+.ng-multiselect__item--no-rows{
+    justify-content: center;
+}
+
+.ng-multiselect__item-values{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-left: 10px;
+    padding-right: 23px;
+}
+
+.ng-multiselect__item-value{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ng-multiselect__item-value--secondary{
+    font-size: 0.8em;
+    opacity: 0.6;
+}
+
+.ng-multiselect__item:hover:not(.ng-multiselect__item--no-rows){
+    background-color: rgba(0, 0, 0, .12);
+}
+
+.ng-multiselect__icon{
+    font-size: 22px;
+}
+
+.ng-multiselect__icon--close{
+    cursor: pointer;
+}
+
+.ng-multiselect__search{
+    width: 100%;
+    padding: 10px 3px 10px 10px;
+    border: none;
+    background-color: transparent;
+    outline-style: none;
+    color: inherit;
+    font-size: inherit;
+}
+
+/*
+Animación al visualizar el dropdown.
+*/
+@keyframes slideDown {
+    0% {
+        transform: translateY(-10px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
