@@ -114,15 +114,15 @@ export class NgMultiselectComponent implements OnInit {
         private _renderer: Renderer2,
         private _formBuilder: FormBuilder
     ) {
-
-        this.selectedItemsKeys = this.toggleButtonText;
-
         this.itemAll = new NgMultiselectItem('0', 'Seleccionar todo');
 
         this._createForm();
     }
 
     ngOnInit(): void {
+
+        this.selectedItemsKeys = this.toggleButtonText;
+        
         this._filterData();
     }
 
@@ -312,9 +312,12 @@ export class NgMultiselectComponent implements OnInit {
                     item.key;
             });
 
+        if (!this.selectedItemsKeys) {
+            this.selectedItemsKeys = this.toggleButtonText;
+        }
+
         // Envía los registros seleccionados.
         this.selectedItemsChanged.emit(selectedItems);
-        this.selectedItemsKeysChanged.emit(this.selectedItemsKeys);
     }
 
     /**
