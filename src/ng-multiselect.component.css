@@ -27,6 +27,8 @@
     border-top: 4px solid;
     border-left: 4px solid transparent;
     border-right: 4px solid transparent;
+    margin-left: 11px;
+    margin-right: 6px;
 }
 
 .ng-multiselect__dropdown {
@@ -45,6 +47,7 @@
     border: 1px solid #CCCCCC;
     animation: slideDown .1s;
     cursor: default;
+    z-index: 1000;
 }
 
 .ng-multiselect__dropdown-container {
@@ -131,6 +134,7 @@
     outline-style: none;
     color: inherit;
     font-size: inherit;
+    font-weight: 400;
 }
 
 /*
