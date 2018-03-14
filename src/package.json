@@ -1,6 +1,6 @@
 {
     "name": "@jchinc/ng-multiselect",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "description": "Control de selección múltiple de elementos",
     "main": "./bundles/ng-multiselect.umd.js",
     "module": "./esm5/ng-multiselect.js",

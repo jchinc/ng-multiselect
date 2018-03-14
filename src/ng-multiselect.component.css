@@ -2,6 +2,7 @@
     color:#59595A;
     position: relative;
     font-family: Roboto, "Helvetica Neue",Helvetica,Arial,sans-serif;
+    width: 100%;
 }
 
 .ng-multiselect--disabled{
@@ -119,6 +120,7 @@
 .ng-multiselect__icon--close{
     cursor: pointer;
     pointer-events: initial;
+    opacity: 0.8;
 }
 
 .ng-multiselect__search{

@@ -36,7 +36,8 @@
                        [placeholder]="inputSearchPlaceHolder"
                        (keyup)="inputKeyup($event)"
                        formControlName="term">
-                <i class="material-icons ng-multiselect__icon ng-multiselect__icon--close"
+                <i [style.display]="term?'inherit':'none'"
+                   class="material-icons ng-multiselect__icon ng-multiselect__icon--close"
                    (click)="clearTerm()">close</i>
             </li>
         </form>

@@ -43,11 +43,11 @@ export class NgMultiselectComponent implements OnInit {
      */
     private _listItemHeight: number = 44;
 
-    private set _term(value: string) {
+    set term(value: string) {
         this.selectForm.get('term').setValue(value);
     }
 
-    private get _term(): string {
+    get term(): string {
         return this.selectForm.get('term').value;
     }
 
@@ -158,7 +158,7 @@ export class NgMultiselectComponent implements OnInit {
     }
 
     clearTerm(): void {
-        this._term = '';
+        this.term = '';
         this._inputRef.nativeElement.focus();
     }
 
