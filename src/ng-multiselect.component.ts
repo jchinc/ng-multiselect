@@ -3,6 +3,8 @@ declare var _: any;
 import {
     Component,
     OnInit,
+    OnChanges,
+    SimpleChanges,
     Input,
     Output,
     EventEmitter,
@@ -23,7 +25,7 @@ import { INgMultiselectItem, NgMultiselectItem } from './ng-multiselect.models';
     templateUrl: './ng-multiselect.component.html',
     styleUrls: ['./ng-multiselect.component.css']
 })
-export class NgMultiselectComponent implements OnInit {
+export class NgMultiselectComponent implements OnInit, OnChanges {
 
     selectForm: FormGroup;
 
@@ -37,6 +39,8 @@ export class NgMultiselectComponent implements OnInit {
 
     hoveredItem: INgMultiselectItem;
     private _hoveredItemIndex: number = -1;
+
+    private _selectedItems: Array<INgMultiselectItem> = [];
 
     /**
      * Altura de los elementos de la caja de selección.
@@ -114,16 +118,19 @@ export class NgMultiselectComponent implements OnInit {
         private _renderer: Renderer2,
         private _formBuilder: FormBuilder
     ) {
-        this.itemAll = new NgMultiselectItem('0', 'Seleccionar todo');
-
         this._createForm();
     }
 
-    ngOnInit(): void {
+    ngOnChanges(changes: SimpleChanges): void {
 
-        this.selectedItemsKeys = this.toggleButtonText;
-        
-        this._filterData();
+        // Si cambia el origen de datos del control se reinicia.
+        if (changes['source']) {
+            this._initialize();
+        }
+    }
+
+    ngOnInit(): void {
+        this._initialize();
     }
 
     /**
@@ -132,7 +139,7 @@ export class NgMultiselectComponent implements OnInit {
      */
     selectItem(
         item: INgMultiselectItem
-    ) {
+    ): void {
         item.selected = !item.selected;
         this._emitSelectedItemsChanged();
 
@@ -149,11 +156,15 @@ export class NgMultiselectComponent implements OnInit {
         }
     }
 
+    /**
+     * Selecciona/desselecciona todos los registros filtrados.
+     */
     selectUnselectAll(): void {
         this.itemAll.selected = !this.itemAll.selected;
-        this.source.forEach(item => {
+        this.filteredItems.forEach(item => {
             item.selected = this.itemAll.selected;
         });
+        // Indica cambio de elementos seleccionados.
         this._emitSelectedItemsChanged();
     }
 
@@ -209,7 +220,22 @@ export class NgMultiselectComponent implements OnInit {
         }
     }
 
-    private _createForm() {
+    private _initialize(): void {
+
+        this.itemAll = new NgMultiselectItem('0', 'Seleccionar todo');
+
+        this.term = '';
+
+        this.selectedItemsKeys = this.toggleButtonText;
+
+        // Inicializa los registros filtrados. Todos los items.
+        this._filterData();
+
+        // Marca o asigna elementos seleccionados.
+        this._setSelectedItems();
+    }
+
+    private _createForm(): void {
 
         // Control para captura. Término de búsqueda.
         let term = this._formBuilder.control('');
@@ -225,7 +251,7 @@ export class NgMultiselectComponent implements OnInit {
         });
     }
 
-    private _filterData(term?: string) {
+    private _filterData(term?: string): void {
 
         // Límite de registros filtrados.
         let top = (this.top > 0) ? this.top : this.source.length;
@@ -252,7 +278,10 @@ export class NgMultiselectComponent implements OnInit {
         }
     }
 
-    private _match(item: INgMultiselectItem, term: string): boolean {
+    private _match(
+        item: INgMultiselectItem,
+        term: string
+    ): boolean {
 
         // Por defecto el registro no coincide.
         let match = false;
@@ -298,13 +327,23 @@ export class NgMultiselectComponent implements OnInit {
 
     private _emitSelectedItemsChanged(): void {
 
-        let selectedItems: Array<INgMultiselectItem> = [];
+        // Marca o asigna los elementos seleccionados.
+        this._setSelectedItems();
+
+        // Envía los registros seleccionados.
+        this.selectedItemsChanged.emit(this._selectedItems);
+    }
+
+    private _setSelectedItems(): void {
+
+        this._selectedItems = [];
         this.selectedItemsKeys = '';
 
+        // Elementos seleccionados.
         this.source
             .filter(item => item.selected)
             .forEach(item => {
-                selectedItems.push(item);
+                this._selectedItems.push(item);
                 // Visualiza los registros seleccionados.
                 this.selectedItemsKeys =
                     this.selectedItemsKeys +
@@ -312,18 +351,16 @@ export class NgMultiselectComponent implements OnInit {
                     item.key;
             });
 
-        if (!this.selectedItemsKeys) {
+        // En caso de que no haya elemento seleccionado se coloca el texto especificado para el botón toggle.
+        if (this._selectedItems.length === 0) {
             this.selectedItemsKeys = this.toggleButtonText;
         }
-
-        // Envía los registros seleccionados.
-        this.selectedItemsChanged.emit(selectedItems);
     }
 
     /**
      * Ajusta el scroll para visualizar el elemento actualmente seleccionado
      */
-    private _scrollToView(index: number) {
+    private _scrollToView(index: number): void {
 
         if (!this._dropdownItemsRef) {
             return;

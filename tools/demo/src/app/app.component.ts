@@ -26,9 +26,24 @@ export class AppComponent {
         this.rutasSource.push(new NgMultiselectItem('4', 'Item 10'));
         this.rutasSource.push(new NgMultiselectItem('5', 'Item 11'));
         this.rutasSource.push(new NgMultiselectItem('5', 'Item 12'));
+        this.rutasSource.push(new NgMultiselectItem('4', 'Item 13'));
+        this.rutasSource.push(new NgMultiselectItem('5', 'Item 14'));
+        this.rutasSource.push(new NgMultiselectItem('3', 'Item 15'));
+        this.rutasSource.push(new NgMultiselectItem('4', 'Item 16'));
+        this.rutasSource.push(new NgMultiselectItem('5', 'Item 17'));
+        this.rutasSource.push(new NgMultiselectItem('5', 'Item 18'));
     }
 
     changes(items: Array<NgMultiselectItem>) {
         console.log(items);
+    }
+
+    resetSource():void{
+        this.rutasSource = [];
+        this.rutasSource.push(new NgMultiselectItem('1', 'Item 1', 'Pruebas'));
+        this.rutasSource.push(new NgMultiselectItem('2', 'Item 2', '', false, ['prueba1', 'prueba2']));
+        this.rutasSource.push(new NgMultiselectItem('3', 'Item 3 con texto largo para verificar ellipsis'));
+        this.rutasSource.push(new NgMultiselectItem('4', 'Item 4'));
+        this.rutasSource.push(new NgMultiselectItem('5', 'Item 5'));
     }
 }

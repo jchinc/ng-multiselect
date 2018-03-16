@@ -6,7 +6,7 @@
     <div class="ng-multiselect__toggle-button"
          [ngClass]="toggleButtonClasses"
          (click)="toggleButtonClick()">
-        <span>{{selectedItemsKeys}}</span>
+        <span class="ng-multiselect__toggle-button-value">{{selectedItemsKeys}}</span>
         <span class="ng-multiselect__toggle-button-caret"></span>
     </div>
 
@@ -65,11 +65,13 @@
                    class="material-icons ng-multiselect__icon">check_box_outline_blank</i>
                 <!-- Texto -->
                 <div class="ng-multiselect__item-values">
-                    <span class="ng-multiselect__item-value">
+                    <span class="ng-multiselect__item-value"
+                          [title]="item.value">
                         {{item.value}}
                     </span>
                     <span *ngIf="item.valueSecondary"
-                          class="ng-multiselect__item-value ng-multiselect__item-value--secondary">
+                          class="ng-multiselect__item-value ng-multiselect__item-value--secondary"
+                          [title]="item.valueSecondary">
                         {{item.valueSecondary}}
                     </span>
                 </div>
