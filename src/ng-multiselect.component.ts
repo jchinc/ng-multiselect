@@ -140,8 +140,12 @@ export class NgMultiselectComponent implements OnInit, OnChanges {
     selectItem(
         item: INgMultiselectItem
     ): void {
+        
+        // Elemento seleccionado.
         item.selected = !item.selected;
-        this._emitSelectedItemsChanged();
+        
+        // Elementos seleccionados.
+        this._setSelectedItems();
 
         // Inicializa el item sombreado con el teclado. Si se hubiese indicado alguno.
         this._hoveredItemIndex = -1;
@@ -164,8 +168,8 @@ export class NgMultiselectComponent implements OnInit, OnChanges {
         this.filteredItems.forEach(item => {
             item.selected = this.itemAll.selected;
         });
-        // Indica cambio de elementos seleccionados.
-        this._emitSelectedItemsChanged();
+        // Elementos seleccionados.
+        this._setSelectedItems();
     }
 
     clearTerm(): void {
@@ -325,16 +329,10 @@ export class NgMultiselectComponent implements OnInit, OnChanges {
         this._renderer.setStyle(this._dropdownRef.nativeElement, 'display', 'none');
     }
 
-    private _emitSelectedItemsChanged(): void {
-
-        // Marca o asigna los elementos seleccionados.
-        this._setSelectedItems();
-
-        // Envía los registros seleccionados.
-        this.selectedItemsChanged.emit(this._selectedItems);
-    }
-
     private _setSelectedItems(): void {
+
+        // Número de registros seleccionados previamente.
+        const selectedItemsLength = this._selectedItems.length;
 
         this._selectedItems = [];
         this.selectedItemsKeys = '';
@@ -354,6 +352,11 @@ export class NgMultiselectComponent implements OnInit, OnChanges {
         // En caso de que no haya elemento seleccionado se coloca el texto especificado para el botón toggle.
         if (this._selectedItems.length === 0) {
             this.selectedItemsKeys = this.toggleButtonText;
+        }
+
+        // Indica un cambio de registros seleccionados.
+        if (selectedItemsLength !== this._selectedItems.length) {
+            this.selectedItemsChanged.emit(this._selectedItems);
         }
     }
 
