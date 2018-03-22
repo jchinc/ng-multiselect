@@ -162,6 +162,10 @@ export class NgMultiselectComponent implements OnInit, OnChanges {
         // Inicializa el item sombreado con el teclado. Si se hubiese indicado alguno.
         this._hoveredItemIndex = -1;
         this.hoveredItem = null;
+
+        if (this.onlyOneRow) {
+            this._hideDropdown();
+        }
     }
 
     toggleButtonClick(): void {
