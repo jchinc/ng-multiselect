@@ -15,7 +15,8 @@
         class="ng-multiselect__dropdown ng-multiselect__dropdown--raised">
 
         <!-- Elemento: Seleccionar todo -->
-        <li class="ng-multiselect__item ng-multiselect__item--bordered ng-multiselect__item--accent"
+        <li *ngIf="!onlyOneRow"
+            class="ng-multiselect__item ng-multiselect__item--bordered ng-multiselect__item--accent"
             (click)="selectUnselectAll()">
             <i *ngIf="itemAll.selected"
                class="material-icons ng-multiselect__icon">check_box</i>
@@ -55,13 +56,14 @@
             <!-- Registros filtrados -->
             <li *ngFor="let item of filteredItems"
                 class="ng-multiselect__item"
-                [class.ng-multiselect__item--selected]="item===hoveredItem"
+                [class.ng-multiselect__item--selected]="!onlyOneRow && item===hoveredItem"
+                [class.ng-multiselect__item--selected]="onlyOneRow && item.selected"
                 (click)="selectItem(item, $event)">
                 <!-- Elemento seleccionado -->
-                <i *ngIf="item.selected"
+                <i *ngIf="item.selected && !onlyOneRow"
                    class="material-icons ng-multiselect__icon">check_box</i>
                 <!-- Elemento NO seleccionado -->
-                <i *ngIf="!item.selected"
+                <i *ngIf="!item.selected && !onlyOneRow"
                    class="material-icons ng-multiselect__icon">check_box_outline_blank</i>
                 <!-- Texto -->
                 <div class="ng-multiselect__item-values">

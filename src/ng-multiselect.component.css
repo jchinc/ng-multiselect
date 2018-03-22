@@ -116,7 +116,7 @@
     opacity: 0.6;
 }
 
-.ng-multiselect__item:hover:not(.ng-multiselect__item--no-rows) {
+.ng-multiselect__item:hover:not(.ng-multiselect__item--no-rows):not(.ng-multiselect__item--selected) {
     background-color: rgba(0, 0, 0, .12);
 }
 

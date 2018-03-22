@@ -59,6 +59,11 @@ export class NgMultiselectComponent implements OnInit, OnChanges {
 
     @Input() top = 0;
 
+    /**
+     * Para permitir que funcione como un select de 1 sólo registro.
+     */
+    @Input() onlyOneRow = false;
+
     @Input() inputSearchPlaceHolder = 'Buscar';
 
     @Input() disabled = false;
@@ -140,10 +145,17 @@ export class NgMultiselectComponent implements OnInit, OnChanges {
     selectItem(
         item: INgMultiselectItem
     ): void {
-        
+
+        // Deselecciona cualquier elemento seleccionado.
+        if (this.onlyOneRow) {
+            this.source.forEach(item => {
+                item.selected = false;
+            });
+        }
+
         // Elemento seleccionado.
         item.selected = !item.selected;
-        
+
         // Elementos seleccionados.
         this._setSelectedItems();
 
@@ -332,7 +344,7 @@ export class NgMultiselectComponent implements OnInit, OnChanges {
     private _setSelectedItems(): void {
 
         // Número de registros seleccionados previamente.
-        const selectedItemsLength = this._selectedItems.length;
+        let selectedItemsLength = this._selectedItems.length;
 
         this._selectedItems = [];
         this.selectedItemsKeys = '';
@@ -342,11 +354,17 @@ export class NgMultiselectComponent implements OnInit, OnChanges {
             .filter(item => item.selected)
             .forEach(item => {
                 this._selectedItems.push(item);
-                // Visualiza los registros seleccionados.
-                this.selectedItemsKeys =
-                    this.selectedItemsKeys +
-                    (this.selectedItemsKeys.length ? ',' : '') +
-                    item.key;
+                if (this.onlyOneRow) {
+                    // Visualiza el texto del elemento seleccionado.
+                    this.selectedItemsKeys = item.value;
+                    selectedItemsLength = 0;
+                } else {
+                    // Visualiza los registros seleccionados.
+                    this.selectedItemsKeys =
+                        this.selectedItemsKeys +
+                        (this.selectedItemsKeys.length ? ',' : '') +
+                        item.key;
+                }
             });
 
         // En caso de que no haya elemento seleccionado se coloca el texto especificado para el botón toggle.

@@ -1,6 +1,7 @@
 <div class="select__container">
     <ng-multiselect [source]="rutasSource"
                     [accentInsensitive]="true"
+                    [onlyOneRow]="true"
                     (selectedItemsChanged)="changes($event)"
                     [toggleButtonText]="'Rutas'"></ng-multiselect>
 
