@@ -57,7 +57,7 @@
             <li *ngFor="let item of filteredItems"
                 class="ng-multiselect__item"
                 [class.ng-multiselect__item--selected]="!onlyOneRow && item===hoveredItem"
-                [class.ng-multiselect__item--selected]="onlyOneRow && item.selected"
+                [class.ng-multiselect__item--selected]="onlyOneRow && (item.selected || item===hoveredItem)"
                 (click)="selectItem(item, $event)">
                 <!-- Elemento seleccionado -->
                 <i *ngIf="item.selected && !onlyOneRow"
