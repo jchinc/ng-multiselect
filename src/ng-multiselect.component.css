@@ -106,9 +106,9 @@
 }
 
 .ng-multiselect__item-value {
-    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .ng-multiselect__item-value--secondary {
