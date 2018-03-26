@@ -24,6 +24,7 @@
 .ng-multiselect__toggle-button-value {
     overflow: hidden;
     text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .ng-multiselect__toggle-button-caret {
